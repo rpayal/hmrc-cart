@@ -1,5 +1,6 @@
 package com.co4gsl.service;
 
+import com.co4gsl.rules.SpecialOffer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class CheckoutServiceTest {
 
     @Before
     public void setup() {
-        target = new CheckoutService();
+        target = new CheckoutService(new SpecialOffer());
     }
 
     @Test
@@ -34,6 +35,30 @@ public class CheckoutServiceTest {
     @Test
     public void testCheckoutMultipleItems() {
         BigDecimal cost = target.checkout(Arrays.asList("Apple", "Apple", "Orange", "Apple"));
-        assertEquals("Wrong cost", BigDecimal.valueOf(205, 2), cost);
+        assertEquals("Wrong cost", BigDecimal.valueOf(145, 2), cost);
+    }
+
+
+    @Test
+    public void testCheckoutMultipleAppleOffer() {
+        BigDecimal cost = target.checkout(Arrays.asList("Apple", "Apple"));
+        assertEquals("Wrong cost", BigDecimal.valueOf(60, 2), cost);
+    }
+
+    @Test
+    public void testCheckoutMultipleOrangeOffer() {
+        BigDecimal cost = target.checkout(Arrays.asList("Orange","Orange","Orange"));
+        assertEquals("Wrong cost", BigDecimal.valueOf(50, 2), cost);
+    }
+
+    @Test
+    public void testCheckoutWhenNoItems() {
+        BigDecimal cost = target.checkout(Arrays.asList());
+        assertEquals("Wrong cost", BigDecimal.valueOf(0), cost);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testCheckoutWhenUnknownItem() {
+        BigDecimal cost = target.checkout(Arrays.asList("xyz"));
     }
 }

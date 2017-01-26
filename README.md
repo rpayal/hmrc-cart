@@ -1,7 +1,7 @@
 # hmrc-cart
 Shopping cart
 
-## Pre-interview Exercise for Developer Candidates ## 
+## Pre-interview Exercise for Developer Candidates
 
 The following exercise will assess your ability to deliver well-structured and maintainable code.  As a TDD shop we will put equal emphasis on evaluating your tests as we will on the code itself.  The exercise should only take 30 ­ 40 minutes; don’t spend much longer than this. 
  
